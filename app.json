@@ -1,0 +1,30 @@
+{
+    "name": "XrayR",
+    "description": "XrayR websocket proxy on heroku",
+    "keywords": ["XrayR"],
+    "env": {
+        "PANELTYPE": {
+            "description": "PANELTYPE",
+            "value": "V2board"
+        },
+        "APIHOST": {
+            "description": "APIHOST",
+            "value": "https://api.v2board.com"
+        },
+        "APIKEY": {
+            "description": "APIKEY",
+            "value": "APIKEY"
+        },
+        "NODEID": {
+            "description": "NODEID",
+            "value": "1"
+        },
+        "PORT": {
+            "description": "PORT",
+            "value": "443"
+        }
+    },
+    "website": "https://github.com/AkashiCoin/XrayR",
+    "repository": "https://github.com/AkashiCoin/XrayR",
+    "stack": "container"
+}
