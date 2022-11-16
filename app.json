@@ -19,9 +19,13 @@
             "description": "NODEID",
             "value": "1"
         },
-        "PORT": {
-            "description": "PORT",
-            "value": "443"
+        "AUTH": {
+            "description": "AUTH to v2board",
+            "value": "authrization"
+        },
+        "DATA": {
+            "description": "Update data",
+            "value": "id=${NODEID}"
         }
     },
     "website": "https://github.com/AkashiCoin/XrayR",

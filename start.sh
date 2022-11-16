@@ -55,4 +55,12 @@ Nodes:
           ALICLOUD_ACCESS_KEY: aaa
           ALICLOUD_SECRET_KEY: bbb
 EOF
+
+if [ ! -f $AUTH ];then
+    curl -X POST \
+      -H "authorization: ${AUTH}" \
+      -d "id=${NODEID}&server_port=${PORT}&${DATA}" \
+      "$APIHOST/api/v1/admin/server/v2ray/save"
+fi
+
 /XrayR -config config.yml
