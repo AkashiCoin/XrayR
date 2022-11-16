@@ -7,4 +7,4 @@ file_server browse
     header Upgrade websocket
 }
 
-reverse_proxy @mywebsocket localhost:8080
+reverse_proxy @mywebsocket localhost:XPORT

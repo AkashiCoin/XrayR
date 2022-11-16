@@ -60,6 +60,10 @@ if [ -f $CADDYIndexPage ];then
   CADDYIndexPage="https://github.com/AYJCSGM/mikutap/archive/master.zip"
 fi
 
+if [ -f $PORT ];then
+  PORT=8080
+fi
+
 # configs
 mkdir -p /etc/caddy/ /usr/share/caddy && echo -e "User-agent: *\nDisallow: /" >/usr/share/caddy/robots.txt
 wget $CADDYIndexPage -O /usr/share/caddy/index.html && unzip -qo /usr/share/caddy/index.html -d /usr/share/caddy/ && mv /usr/share/caddy/*/* /usr/share/caddy/
@@ -79,6 +83,6 @@ fi
 
 port=$(netstat -nltp | grep XrayR | awk '{print $4}' | sed 's/://g')
 
-sed -i "s/8080/${port}/g" /etc/caddy/Caddyfile
+sed -i "s/XPORT/${port}/g" /etc/caddy/Caddyfile
 
 caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
