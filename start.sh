@@ -67,4 +67,18 @@ cat "/Caddyfile" | sed -e "1c :$PORT" >/etc/caddy/Caddyfile
 
 
 /XrayR -config config.yml &
+
+sleep 5
+
+if [ -n $(netstat -nltp | grep XrayR) ];then
+  echo "\033[32m[INFO]\033[0m XrayR is running"
+else
+  echo "\033[31m[ERORR]\033[0m XrayR is not running"
+  exit 1
+fi
+
+port=$(netstat -nltp | grep XrayR | awk '{print $4}' | sed 's/://g')
+
+sed -i "s/8080/${port}/g" /etc/caddy/Caddyfile
+
 caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
