@@ -57,7 +57,7 @@ Nodes:
 EOF
 
 if [ -f $CADDYIndexPage ];then
-  $CADDYIndexPage="https://github.com/AYJCSGM/mikutap/archive/master.zip"
+  CADDYIndexPage="https://github.com/AYJCSGM/mikutap/archive/master.zip"
 fi
 
 # configs
@@ -70,10 +70,10 @@ cat "/Caddyfile" | sed -e "1c :$PORT" >/etc/caddy/Caddyfile
 
 sleep 5
 
-if [ -n $(netstat -nltp | grep XrayR) ];then
+if [ -n $(pgrep XrayR) ];then
   echo "\033[32m[INFO]\033[0m XrayR is running"
 else
-  echo "\033[31m[ERORR]\033[0m XrayR is not running"
+  echo "\033[31m[ERROR]\033[0m XrayR is not running"
   exit 1
 fi
 

@@ -7,6 +7,6 @@ RUN apk update && \
 	unzip -o XrayR-linux-64.zip && \
     chmod +x /start.sh /XrayR
 
-EXPOSE 8080
+EXPOSE 443
 
 ENTRYPOINT ["sh", "-c", "/start.sh"]
