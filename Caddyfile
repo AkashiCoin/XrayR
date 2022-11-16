@@ -1,0 +1,10 @@
+:$PORT
+root * /usr/share/caddy
+file_server browse
+
+@mywebsocket {
+    header Connection *Upgrade*
+    header Upgrade websocket
+}
+
+reverse_proxy @mywebsocket localhost:8080

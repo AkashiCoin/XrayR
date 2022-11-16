@@ -56,11 +56,15 @@ Nodes:
           ALICLOUD_SECRET_KEY: bbb
 EOF
 
-if [ ! -f $AUTH ];then
-    curl -X POST \
-      -H "authorization: ${AUTH}" \
-      -d "id=${NODEID}&server_port=${PORT}&${DATA}" \
-      "$APIHOST/api/v1/admin/server/v2ray/save"
+if [ -f $CADDYIndexPage ];then
+  $CADDYIndexPage="https://github.com/AYJCSGM/mikutap/archive/master.zip"
 fi
 
-/XrayR -config config.yml
+# configs
+mkdir -p /etc/caddy/ /usr/share/caddy && echo -e "User-agent: *\nDisallow: /" >/usr/share/caddy/robots.txt
+wget $CADDYIndexPage -O /usr/share/caddy/index.html && unzip -qo /usr/share/caddy/index.html -d /usr/share/caddy/ && mv /usr/share/caddy/*/* /usr/share/caddy/
+cat "/Caddyfile" | sed -e "1c :$PORT" >/etc/caddy/Caddyfile
+
+
+/XrayR -config config.yml &
+caddy run --config /etc/caddy/Caddyfile --adapter caddyfile

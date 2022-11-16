@@ -19,13 +19,9 @@
             "description": "NODEID",
             "value": "1"
         },
-        "AUTH": {
-            "description": "AUTH to v2board",
-            "value": "authrization"
-        },
-        "DATA": {
-            "description": "Update data",
-            "value": "id=${NODEID}"
+        "CADDYIndexPage": {
+            "description": "自定义CADDY部署完成后点击View的显示页面，参考：https://github.com/AkashiCoin/Xray-Heroku/blob/master/etc/CADDYIndexPage.md",
+            "value": "https://github.com/AYJCSGM/mikutap/archive/master.zip"
         }
     },
     "website": "https://github.com/AkashiCoin/XrayR",
