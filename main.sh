@@ -9,7 +9,7 @@ fi
 
 FILES_PATH=${FILES_PATH:-./}
 
-cat << EOF > ./config.yml
+cat << EOF > /tmp/config.yml
 Log:
   Level: info 
   AccessPath: 
@@ -79,7 +79,7 @@ wget $CADDYIndexPage -O $FILES_PATH/share/caddy/index.html && busybox unzip -qo 
 cat "$FILES_PATH/Caddyfile" | sed -e "1c :$PORT" -e "s|/usr|$FILES_PATH|g" >$FILES_PATH/share/Caddyfile
 
 
-./XrayR -config config.yml &
+./XrayR -config /tmp/config.yml &
 
 sleep 5
 
