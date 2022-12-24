@@ -14,3 +14,7 @@ NODEID=0
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://dashboard.heroku.com/new?template=https://github.com/AkashiCoin/XrayR) 
 
+### Replit
+
+[![Deploy](https://repl.it/badge/github/andbruibm/reader-replit)](https://repl.it/github/AkashiCoin/XrayR) 
+

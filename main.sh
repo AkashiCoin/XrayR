@@ -1,6 +1,15 @@
 #!/bin/sh
 
-cat << EOF > /config.yml
+# install
+if [ ! -f XrayR ];then
+  wget -q https://github.com/XrayR-project/XrayR/releases/download/v0.8.4/XrayR-linux-64.zip
+	busybox unzip -o XrayR-linux-64.zip
+  chmod +x ./XrayR
+fi
+
+FILES_PATH=${FILES_PATH:-./}
+
+cat << EOF > ./config.yml
 Log:
   Level: info 
   AccessPath: 
@@ -30,7 +39,7 @@ Nodes:
       DeviceLimit: 0
       RuleListPath:
     ControllerConfig:
-      ListenIP: 0.0.0.0
+      ListenIP: 127.0.0.1
       SendIP: 0.0.0.0
       UpdatePeriodic: 60
       EnableDNS: false
@@ -65,12 +74,12 @@ if [ -f $PORT ];then
 fi
 
 # configs
-mkdir -p /etc/caddy/ /usr/share/caddy && echo -e "User-agent: *\nDisallow: /" >/usr/share/caddy/robots.txt
-wget $CADDYIndexPage -O /usr/share/caddy/index.html && unzip -qo /usr/share/caddy/index.html -d /usr/share/caddy/ && mv /usr/share/caddy/*/* /usr/share/caddy/
-cat "/Caddyfile" | sed -e "1c :$PORT" >/etc/caddy/Caddyfile
+mkdir -p $FILES_PATH/share/caddy && echo -e "User-agent: *\nDisallow: /" > $FILES_PATH/share/caddy/robots.txt
+wget $CADDYIndexPage -O $FILES_PATH/share/caddy/index.html && busybox unzip -qo $FILES_PATH/share/caddy/index.html -d $FILES_PATH/share/caddy/ && mv $FILES_PATH/share/caddy/*/* $FILES_PATH/share/caddy/
+cat "$FILES_PATH/Caddyfile" | sed -e "1c :$PORT" -e "s|/usr|$FILES_PATH|g" >$FILES_PATH/share/Caddyfile
 
 
-/XrayR -config config.yml &
+./XrayR -config config.yml &
 
 sleep 5
 
@@ -81,8 +90,8 @@ else
   exit 1
 fi
 
-port=$(netstat -nltp | grep XrayR | awk '{print $4}' | sed 's/://g')
+port=$(busybox netstat -nltp | grep XrayR | awk '{print $4}' | sed 's/127.0.0.1://g')
 
-sed -i "s/XPORT/${port}/g" /etc/caddy/Caddyfile
+sed -i "s/XPORT/${port}/g" ./share/Caddyfile
 
-caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
+caddy run --config ./share/Caddyfile --adapter caddyfile
